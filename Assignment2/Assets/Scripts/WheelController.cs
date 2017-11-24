@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 public class WheelController : MonoBehaviour
 {
+    [SerializeField] WheelCollider wc;
+    [SerializeField] Transform wheelGeo;
 
-    [SerializeField]
-    private WheelCollider wc;
-
-    [SerializeField]
-    private Transform wheelGeo;
 
 	void FixedUpdate ()
-    {
+    {   //Update the wheel's geometry to the wheel colliders position.
         Vector3 _position;
         Quaternion _rotation;    
 
