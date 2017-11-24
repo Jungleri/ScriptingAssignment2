@@ -883,7 +883,6 @@ MonoBehaviour:
   steeringForce: 35
   nitrousMultiplier: 2
   nitrousSteeringEffect: 0.3
-  rpmText: {fileID: 0}
 --- !u!146 &146134454618001472
 WheelCollider:
   m_ObjectHideFlags: 1

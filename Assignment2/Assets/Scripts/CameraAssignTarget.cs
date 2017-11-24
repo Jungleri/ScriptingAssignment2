@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityStandardAssets.Cameras;
 using UnityEngine;
 
+
 public class CameraAssignTarget : MonoBehaviour
 {
     [SerializeField]
@@ -12,10 +13,10 @@ public class CameraAssignTarget : MonoBehaviour
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //If there is no tagged player present, for whatever reason, throw out an error.
+
         if (!player)
-        {
-            Debug.Log("ERROR: No player character found by the camera. Check player vehicle has spawn with correct tags.");
+        {   //If there is no tagged player present, for whatever reason, throw out an error.
+            Debug.Log("[ERROR] No player character found by the camera. Check player vehicle has spawn with correct tags.");
         }
         else
         {

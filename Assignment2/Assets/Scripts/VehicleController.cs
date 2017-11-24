@@ -15,12 +15,10 @@ public class VehicleController : MonoBehaviour
     [SerializeField] private float enginePower = 100f;
     [SerializeField] private float breakPower = 100f;
     [SerializeField] private float steeringForce = 50f;
-    private bool nitrousUsed = false;
     [SerializeField] private float nitrousMultiplier = 3f;
     [SerializeField] private float nitrousSteeringEffect = 0.5f;
 
-    [Header("Other")]
-    public Text rpmText;
+    private bool nitrousUsed = false;
     
 
     void FixedUpdate()
@@ -40,13 +38,10 @@ public class VehicleController : MonoBehaviour
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
-        {
+            //Simple 'On whilst held' for the nitrous.
             nitrousUsed = true;
-        }
         else
-        {
             nitrousUsed = false;
-        } 
 
         if (Input.GetKey(KeyCode.Space))
         {   //Apply breaks to the vehicle.
@@ -100,6 +95,7 @@ public class VehicleController : MonoBehaviour
         }
 
     }
+
 
     private void ResetSteering()
     {   //Reset the steering column back to centre.

@@ -11,7 +11,7 @@ public class SkylineFollowPlayer : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if(!player)
         {   //If there is no tagged player present, for whatever reason, remove the skyline as it could interfere.
-            Debug.Log("ERROR: No player character present, removing skyline.");
+            Debug.Log("[ERROR] No player character present, removing skyline.");
             DestroyObject(this);
         }
 	}
