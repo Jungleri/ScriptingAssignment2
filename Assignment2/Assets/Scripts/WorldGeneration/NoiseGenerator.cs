@@ -25,7 +25,7 @@ public static class NoiseGenerator
             scale = 0.001f;
         }
 
-        //Setting the max/min heights as the lowest/highest possibe float. This ensures that the later comparisons we do, work without fail.
+        //Setting the max/min heights as the lowest/highest possibe float. This ensures that the later comparisons we do, work without fail the first time.
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
 

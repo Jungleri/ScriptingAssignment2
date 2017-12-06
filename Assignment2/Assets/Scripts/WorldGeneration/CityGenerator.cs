@@ -22,11 +22,11 @@ public class CityGenerator : MonoBehaviour
 
     public void GenerateCity()
     {
-        //Generate a noisemap from our NoiseGenerator.cs class.
+        //Generate a noisemap using our NoiseGenerator class.
         float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, offset);
 
         //From this noisemap, create an array of city blocks.
-        CityBlockGeneration[,] cityBlockMap = new CityBlockGeneration[mapWidth,mapHeight];
+        EBlockType[,] cityBlockMap = new EBlockType[mapWidth,mapHeight];
 
         for (int y = 0; y < mapHeight; y++)
         {
@@ -40,7 +40,7 @@ public class CityGenerator : MonoBehaviour
                     if(currentHeight <= blockVariations[i].shareOfThisType)
                     {
                         //If ([y * mapWidth + x]) sets the 1D array point from our 2 map size values.
-                        cityBlockMap[x,y] = blockVariations[i].blockPrefab;
+                        cityBlockMap[x,y] = blockVariations[i].blockType;
                         break;
                     }
                 }
@@ -88,5 +88,5 @@ public struct CityBlockType
     //Simple struct which contains the information required to assign the block map a value (name is for designer convenience).
     public string name;
     public float shareOfThisType;
-    public CityBlockGeneration blockPrefab; 
+    public EBlockType blockType; 
 }

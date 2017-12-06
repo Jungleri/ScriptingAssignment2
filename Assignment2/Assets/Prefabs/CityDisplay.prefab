@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982787982192642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.885646, y: -29.934366, z: -85.37437}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,3 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620c68ff264a0d94c918624eacd4e4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cityBlockWidth: 60
+  cityBlockHeight: 60
+  environemtnParentObject: {fileID: 1128688662864120, guid: dcf16ffa90e3a5b478772bd3b92a328f,
+    type: 2}
+  cityBlockBase: {fileID: 114812170424112998, guid: 17e7089cac3c59448a5ec76fff6f3125,
+    type: 2}

@@ -9,10 +9,12 @@ public class CityDisplay : MonoBehaviour
     [SerializeField] float cityBlockHeight = 1f;
 
     [SerializeField] GameObject environemtnParentObject;
+    [SerializeField] CityBlockGeneration cityBlockBase;
+
     GameObject environmentParent;
 
 
-    public void DrawCity(CityBlockGeneration[,] cityMap)
+    public void DrawCity(EBlockType[,] cityMap)
     {
         if(environmentParent)
         {   //If there is an already generated city, destroy it, clearing the previously created one.
@@ -30,13 +32,14 @@ public class CityDisplay : MonoBehaviour
         float topLeftX = ((mapWidth - 1) / -2f) * cityBlockWidth;
         float topLeftZ = ((mapHeight - 1) / 2f) * cityBlockHeight;
 
-
         for (int y = 0; y < mapWidth; y++)
         {
             for (int x = 0; x < mapHeight; x++)
-            {   //For each tile in ou grid, starting at the top left, spawn the predetermined city block.
+            {   //For each tile in our grid, starting at the top left, spawn the predetermined city block.
                 Vector3 position = new Vector3(topLeftX + (x * cityBlockWidth), this.transform.position.y, topLeftZ - (y * cityBlockHeight));
-                Instantiate(cityMap[y, x], position, Quaternion.identity, environmentParent.transform);
+                GameObject block = Instantiate(cityBlockBase.gameObject, position, Quaternion.identity, environmentParent.transform);
+                //Set the block type of the newly spawned city block.
+                block.GetComponent<CityBlockGeneration>().blockType = cityMap[y, x];
             }
         }
     }
