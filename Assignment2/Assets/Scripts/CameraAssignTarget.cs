@@ -16,7 +16,7 @@ public class CameraAssignTarget : MonoBehaviour
 
         if (!player)
         {   //If there is no tagged player present, for whatever reason, throw out an error.
-            Debug.Log("[ERROR] No player character found by the camera. Check player vehicle has spawn with correct tags.");
+            Debug.Log("[ERROR] No player character found by the camera. Check player vehicle has spawned with correct tags.");
         }
         else
         {

@@ -1,31 +1,72 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
+
+enum DriveType { FrontWheelDrive, RearWheelDrive, AllWheelDrive }
 
 public class VehicleController : MonoBehaviour
 {
-    [Header("Wheel Colliders")]
-    [SerializeField] private WheelCollider wcFL;
-    [SerializeField] private WheelCollider wcFR;
-    [SerializeField] private WheelCollider wcRL;
-    [SerializeField] private WheelCollider wcRR;
 
+
+    [Header("Wheel Colliders")]
+    [SerializeField] WheelCollider wcFL;
+    [SerializeField] WheelCollider wcFR;
+    [SerializeField] WheelCollider wcRL;
+    [SerializeField] WheelCollider wcRR;
 
     [Header("Vehicle Settings")]
-    [SerializeField] private float enginePower = 100f;
-    [SerializeField] private float breakPower = 100f;
-    [SerializeField] private float steeringForce = 50f;
-    [SerializeField] private float nitrousMultiplier = 3f;
-    [SerializeField] private float nitrousSteeringEffect = 0.5f;
+    [SerializeField] DriveType driveType = DriveType.FrontWheelDrive;
+    [SerializeField] float enginePower = 100f;
+    [SerializeField] float breakPower = 100f;
+    [SerializeField] float steeringForce = 50f;
+    [SerializeField] float nitrousMultiplier = 3f;
+    [SerializeField] float nitrousSteeringEffect = 0.5f;
 
-    private bool nitrousUsed = false;
-    
+    bool nitrousUsed = false;
+    WheelCollider[] myDriveWheels;
+
+
+    void Start()
+    {
+        if(driveType == DriveType.FrontWheelDrive)
+        {
+
+            myDriveWheels = new WheelCollider[2];
+            myDriveWheels[0] = wcFL;
+            myDriveWheels[1] = wcFR;
+
+        }
+        else if(driveType == DriveType.RearWheelDrive)
+        {
+            myDriveWheels = new WheelCollider[2];
+            myDriveWheels[0] = wcRL;
+            myDriveWheels[1] = wcRR;
+
+            Debug.Log("Set3");
+        }
+        else if (driveType == DriveType.AllWheelDrive)
+        {
+            myDriveWheels = new WheelCollider[4];
+            myDriveWheels[0] = wcFL;
+            myDriveWheels[1] = wcFR;
+            myDriveWheels[3] = wcRL;
+            myDriveWheels[4] = wcRR;
+
+            Debug.Log("Set2");
+        }
+    }
 
     void FixedUpdate()
     {
         if (Input.GetAxisRaw("Vertical") != 0f)
         {   //Apply forward/backward drive to the vehicle.
             DriveVehicle(Input.GetAxisRaw("Vertical"));
+        }
+        else
+        {
+            wcFL.motorTorque = 0f;
+            wcFR.motorTorque = 0f;
         }
 
         if (Input.GetAxisRaw("Horizontal") != 0f)
@@ -57,15 +98,21 @@ public class VehicleController : MonoBehaviour
         wcRL.brakeTorque = 0f;
         wcRR.brakeTorque = 0f;
 
+
         if(nitrousUsed)
         {   //Apply motor torque to the wheels.
-            wcFL.motorTorque = enginePower * nitrousMultiplier * _driveDirection;
-            wcFR.motorTorque = enginePower * nitrousMultiplier * _driveDirection;
+
+            for (int i = 0; i < myDriveWheels.Length; i++)
+            {
+                myDriveWheels[i].motorTorque = enginePower * nitrousMultiplier * _driveDirection;
+            }
         }
         else
         {
-            wcFL.motorTorque = enginePower * _driveDirection;
-            wcFR.motorTorque = enginePower * _driveDirection;
+            for (int j = 0; j < myDriveWheels.Length; j++)
+            {
+                myDriveWheels[j].motorTorque = enginePower * nitrousMultiplier * _driveDirection;
+            }
         }
     }
 

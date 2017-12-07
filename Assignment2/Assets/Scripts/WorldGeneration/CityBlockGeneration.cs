@@ -21,15 +21,14 @@ public class CityBlockGeneration : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(SpawnMyBlock());
+        SpawnMyBlock();
     }
 
 
-    IEnumerator SpawnMyBlock()
+    void SpawnMyBlock()
     {
         //Spawn my centre piece.
         Instantiate(PickMyCentre(), centrePosition.position, Quaternion.identity, centrePosition);
-        return null;
     }
 
     private GameObject PickMyCentre()
