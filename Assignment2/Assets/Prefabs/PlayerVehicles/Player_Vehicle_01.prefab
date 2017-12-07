@@ -381,7 +381,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1222738040212054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.3, y: 0, z: -56}
+  m_LocalPosition: {x: 25.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4938348825115568}
@@ -793,7 +793,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1000
   m_Drag: 0.2
-  m_AngularDrag: 0.25
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -878,8 +878,8 @@ MonoBehaviour:
   wcFR: {fileID: 146932127175469256}
   wcRL: {fileID: 146465716442880366}
   wcRR: {fileID: 146134454618001472}
-  enginePower: 350
-  breakPower: 300
+  enginePower: 600
+  breakPower: 500
   steeringForce: 35
   nitrousMultiplier: 2
   nitrousSteeringEffect: 0.3
@@ -897,7 +897,7 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 30
+  m_Mass: 50
   m_WheelDampingRate: 0.75
   m_ForwardFriction:
     m_ExtremumSlip: 0.1
@@ -910,7 +910,7 @@ WheelCollider:
     m_ExtremumValue: 0.9
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.7
-    m_Stiffness: 0.85
+    m_Stiffness: 0.3
   m_Enabled: 1
 --- !u!146 &146465716442880366
 WheelCollider:
@@ -926,7 +926,7 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 30
+  m_Mass: 50
   m_WheelDampingRate: 0.75
   m_ForwardFriction:
     m_ExtremumSlip: 0.1
@@ -939,7 +939,7 @@ WheelCollider:
     m_ExtremumValue: 0.9
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.7
-    m_Stiffness: 0.85
+    m_Stiffness: 0.3
   m_Enabled: 1
 --- !u!146 &146922662715616560
 WheelCollider:
@@ -955,7 +955,7 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 30
+  m_Mass: 50
   m_WheelDampingRate: 0.75
   m_ForwardFriction:
     m_ExtremumSlip: 0.1
@@ -968,7 +968,7 @@ WheelCollider:
     m_ExtremumValue: 0.9
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.7
-    m_Stiffness: 0.975
+    m_Stiffness: 0.3
   m_Enabled: 1
 --- !u!146 &146932127175469256
 WheelCollider:
@@ -984,7 +984,7 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 30
+  m_Mass: 50
   m_WheelDampingRate: 0.75
   m_ForwardFriction:
     m_ExtremumSlip: 0.1
@@ -997,5 +997,5 @@ WheelCollider:
     m_ExtremumValue: 0.9
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.7
-    m_Stiffness: 0.975
+    m_Stiffness: 0.3
   m_Enabled: 1
