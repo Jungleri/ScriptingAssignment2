@@ -7,8 +7,21 @@ public class ScoreManager : MonoBehaviour
     public EGameState gameState;
     public float score;
     public float scoreMultiplier = 1.0f;
-    bool multiplierUpdated = false;
+    float resetTimer = 0f;
 
+
+    private void Update()
+    {
+        if ((gameState == EGameState.Game) && (scoreMultiplier != 1.0f))
+        {
+            resetTimer += Time.deltaTime;
+        }
+
+        if(resetTimer >= 10.0f)
+        {
+            ResetMultiplier();
+        }
+    }
 
     public void IncreaseScore(float _scoreToAdd)
     {
@@ -20,25 +33,12 @@ public class ScoreManager : MonoBehaviour
     void IncreaseMultiplier()
     {
         scoreMultiplier += 0.1f;
-        StartCoroutine(TimeoutMultiplierReset());
-        multiplierUpdated = false;
     }
 
 
     void ResetMultiplier()
     {
         scoreMultiplier = 1.0f;
-    }
-
-
-    IEnumerator TimeoutMultiplierReset()
-    {
-        multiplierUpdated = true;
-        while (multiplierUpdated)
-        {
-            yield return new WaitForSeconds(5);
-            ResetMultiplier();
-        }
-        yield break;
+        resetTimer = 0.0f;
     }
 }

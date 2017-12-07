@@ -13,6 +13,7 @@ public class AIManager : MonoBehaviour
     public int targetActiveAI = 0;
 
     GameObject player;
+    [SerializeField] ScoreManager scoreManager;
 
 
     void Awake()
@@ -23,6 +24,8 @@ public class AIManager : MonoBehaviour
         {   //If there is no tagged player present, for whatever reason, throw out an error.
             Debug.Log("[ERROR] No player character found by the AIManager. Check player vehicle has spawned with correct tags.");
         }
+
+        scoreManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ScoreManager>();
     }
 
 
@@ -49,7 +52,8 @@ public class AIManager : MonoBehaviour
 
             if (hit.hit)
             {   //If we have a valid position, spawn an a random zombie on our navmesh position, increase the active AI by 1 and return, breaking out of the SpawnAI() function.
-                Instantiate(zombiePrefab[Random.Range(0, (zombiePrefab.Length - 1))], hit.position, Quaternion.identity, this.transform);
+                AIZombie zombie = Instantiate(zombiePrefab[Random.Range(0, (zombiePrefab.Length - 1))], hit.position, Quaternion.identity, this.transform);
+                zombie.aiManager = this;
                 activeAI++;
                 return;
             }
@@ -57,8 +61,13 @@ public class AIManager : MonoBehaviour
     }
 
 
-    void RemoveAI()
+    public void AIDied(float score, bool killed)
     {
+        if(killed)
+        {   //If the AI was killed by the player, increase the score, else don't.
+            scoreManager.IncreaseScore(score);
+        }
+
         //Remove an AI from the list, then spawn a new one.
         activeAI--;
         SpawnAI();

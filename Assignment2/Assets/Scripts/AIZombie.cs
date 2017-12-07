@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class AIZombie : MonoBehaviour
 {
-    [SerializeField] Rigidbody[] ragdollBones;
     [SerializeField] float requiredHitImpact;
+    [SerializeField] float myScoreValue = 10;
 
+    public AIManager aiManager;
     bool dead = false;
 
 
-	void Start ()
-    {
-		foreach (Rigidbody rb in ragdollBones)
-        {   //Disable the ragdolling for all of my bones.
-            rb.isKinematic = true;
-        }
-	}
 
-
-    public bool CollideWithMe(Vector3 _velocity)
+    public bool CollideWith(Vector3 _velocity)
     {   //If we are hit with enough force to kill, return the result and call the Die() function.
             Debug.Log(_velocity.magnitude);
             if (_velocity.magnitude > requiredHitImpact && !dead)
@@ -32,22 +25,20 @@ public class AIZombie : MonoBehaviour
             return false;
         }
     }
-	
+
 
     void Die()
     {
-        foreach (Rigidbody rb in ragdollBones)
-        {   //Enable the ragdolling for all of my bones.
-            rb.isKinematic = false;
-        }
-
+        aiManager.AIDied(myScoreValue, true);
         StartCoroutine(CorpseTimeout());
+        dead = true;
     }
 
 
     IEnumerator CorpseTimeout()
     {   //After 5 seconds, destroy the character/body.
         yield return new WaitForSeconds(5);
+        Debug.Log("Dead");
         Destroy(this.gameObject);
     }
 }

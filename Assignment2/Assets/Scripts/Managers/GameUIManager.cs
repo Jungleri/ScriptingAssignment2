@@ -28,32 +28,23 @@ public class GameUIManager : MonoBehaviour
 
     public void UpdateScore(float _score)
     {   //Updating the score on HUD.
-        if(_score != score)
-        {   //If the score has changed, update the text.
-            scoreText.text = (Mathf.Round(score)).ToString();
-        }
-
         score = _score;
+        scoreText.text = (Mathf.Round(score)).ToString();
     }
 
     public void UpdateScoreMultiplier(float _scoreMultiplier)
     {   //Updating the score multiplier on HUD.
-        if (_scoreMultiplier != scoreMultiplier)
-        {   //If the score multiplier has changed, update the text.
-            scoreMultiplierText.text = ("x" + scoreMultiplier.ToString());
-            for (int i = 0; i < multiplierColour.Length; i++)
-            {   //Check through the MultiplierColour for where our current multiplier sits and assign the respecive colour to our text.
-                if (scoreMultiplier <= multiplierColour[i].multiplier)
-                {   //For some reason, I need to break the colour and reconstruct it like so. Unity won't take = multiplierColour[i].colour as it is.
-                    scoreMultiplierText.color = new Color(multiplierColour[i].colour.r, multiplierColour[i].colour.g, multiplierColour[i].colour.b);
-                    break;
-                }
+        scoreMultiplier = _scoreMultiplier;
+        scoreMultiplierText.text = ("x" + scoreMultiplier.ToString());
+        for (int i = 0; i < multiplierColour.Length; i++)
+        {   //Check through the MultiplierColour for where our current multiplier sits and assign the respecive colour to our text.
+            if (scoreMultiplier <= multiplierColour[i].multiplier)
+            {   //For some reason, I need to break the colour and reconstruct it like so. Unity won't take = multiplierColour[i].colour as it is.
+                scoreMultiplierText.color = new Color(multiplierColour[i].colour.r, multiplierColour[i].colour.g, multiplierColour[i].colour.b);
+                break;
             }
         }
-
-        scoreMultiplier = _scoreMultiplier;
     }
-
 }
 
 [System.Serializable]
