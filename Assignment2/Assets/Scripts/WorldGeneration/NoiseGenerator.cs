@@ -73,7 +73,6 @@ public static class NoiseGenerator
             {
                 //Once we have gone through every tile, to ensure we have values at 0 and 1, lerp between the max/min height.
                 noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
-                Debug.Log(noiseMap[x,y]);
             }
         }
 

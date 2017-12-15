@@ -2819,7 +2819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9ced4b4c2e96b4a92fe9460aabc8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredHitImpact: 0.25
+  requiredHitImpact: 0.15
   myScoreValue: 10
   aiManager: {fileID: 0}
   animControl: {fileID: 9509074}

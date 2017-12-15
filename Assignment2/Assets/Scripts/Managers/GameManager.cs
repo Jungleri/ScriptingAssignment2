@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     int currentLevel = 0;
 
+
     private void Awake()
     {
         DontDestroyOnLoad(this);

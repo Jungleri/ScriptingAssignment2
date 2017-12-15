@@ -11,15 +11,18 @@ public class CityDisplay : MonoBehaviour
     [SerializeField] GameObject environemtnParentObject;
     [SerializeField] CityBlockGeneration cityBlockBase;
 
-    GameObject environmentParent;
+    [SerializeField] GameObject environmentParent;
 
 
     public void DrawCity(EBlockType[,] cityMap)
     {
-        if(environmentParent)
+        if (!environmentParent)
         {   //If there is an already generated city, destroy it, clearing the previously created one.
-            DestroyImmediate(environmentParent);
+            environmentParent = transform.Find("EnvironmentParentObject(Clone)").gameObject;
         }
+
+        DestroyImmediate(environmentParent);
+
 
         //Create an environment parent.
         environmentParent = Instantiate(environemtnParentObject, this.transform.position, Quaternion.identity, this.transform);
