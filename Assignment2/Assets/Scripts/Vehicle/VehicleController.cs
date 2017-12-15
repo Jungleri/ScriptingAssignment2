@@ -5,6 +5,7 @@ using System.Collections;
 
 enum DriveType { FrontWheelDrive, RearWheelDrive, AllWheelDrive }
 
+[RequireComponent(typeof(Rigidbody))]
 public class VehicleController : MonoBehaviour
 {
 
@@ -42,8 +43,6 @@ public class VehicleController : MonoBehaviour
             myDriveWheels = new WheelCollider[2];
             myDriveWheels[0] = wcRL;
             myDriveWheels[1] = wcRR;
-
-            Debug.Log("Set3");
         }
         else if (driveType == DriveType.AllWheelDrive)
         {
@@ -52,8 +51,6 @@ public class VehicleController : MonoBehaviour
             myDriveWheels[1] = wcFR;
             myDriveWheels[3] = wcRL;
             myDriveWheels[4] = wcRR;
-
-            Debug.Log("Set2");
         }
     }
 

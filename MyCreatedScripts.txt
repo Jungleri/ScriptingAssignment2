@@ -1,4 +1,4 @@
-Scripts created by my for assessment;
+Scripts created by myself for assessment;
 
 /Editor/GenerateCityEditor.cs
 /Scripts/Managers/*
@@ -6,3 +6,5 @@ Scripts created by my for assessment;
 /Scripts/Camera/CameraAssignTarger.cs
 /Scripts/SkylineFollowPlayer.cs
 /Scripts/AIZombie.cs
+/Scripts/BasicRotation.cs
+Scripts/VehicleSelector.cs

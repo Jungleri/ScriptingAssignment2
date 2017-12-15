@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
 
     void Start ()
     {   //Sets the game state to menu.
-        gameState = EGameState.PreGame;
-        StartLevel(1);
-        Debug.Log("Set Menu.");
+        gameState = EGameState.Menu;
 	}
 
 
@@ -51,6 +49,13 @@ public class GameManager : MonoBehaviour
         gameState = _gameState;
         timerMang.gameState = _gameState;
         scoreMang.gameState = _gameState;
+    }
+
+
+    public void StartGame()
+    {   //When we hit the 'Start' button on the title screen, load the main scene and start level 1.
+        SceneManager.LoadScene("MainGameScene");
+        StartLevel(1);
     }
 
 
