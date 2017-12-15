@@ -54,4 +54,4 @@ MonoBehaviour:
   maxSpawnDist: 200
   zombiePrefab:
   - {fileID: 114791215524495408, guid: 5e488cfd825ce044395037d93a9d8eb6, type: 2}
-  targetActiveAI: 99999
+  targetActiveAI: 15

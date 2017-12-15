@@ -2018,7 +2018,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1703635076660660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -34.181446, y: 35.046844, z: 63.142654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4835661726839760}
@@ -7898,6 +7898,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockType: 0
+  possibleRotations:
+  - 0
+  - 90
+  - 180
+  - 360
   centrePosition: {fileID: 4979732843470626}
   officePrefabs:
   - {fileID: 1716755202505066, guid: 3ecb5f012458aa4489b096794e4221fe, type: 2}
@@ -7906,7 +7911,7 @@ MonoBehaviour:
   parkPrefabs:
   - {fileID: 1716755202505066, guid: 3ecb5f012458aa4489b096794e4221fe, type: 2}
   appartmentPrefabs:
-  - {fileID: 1716755202505066, guid: 3ecb5f012458aa4489b096794e4221fe, type: 2}
+  - {fileID: 1226401573106478, guid: be6f2f54c3d5a134ba6257eded22c21b, type: 2}
 --- !u!114 &114853241847104368
 MonoBehaviour:
   m_ObjectHideFlags: 1

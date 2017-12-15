@@ -40,6 +40,7 @@ public class CityDisplay : MonoBehaviour
                 GameObject block = Instantiate(cityBlockBase.gameObject, position, Quaternion.identity, environmentParent.transform);
                 //Set the block type of the newly spawned city block.
                 block.GetComponent<CityBlockGeneration>().blockType = cityMap[y, x];
+                block.GetComponent<CityBlockGeneration>().SpawnMyBlock();
             }
         }
     }

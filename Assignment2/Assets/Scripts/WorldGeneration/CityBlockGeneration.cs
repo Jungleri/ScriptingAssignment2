@@ -9,6 +9,7 @@ public enum EBlockType{ Office, OfficeOld, Park, Appartment };
 public class CityBlockGeneration : MonoBehaviour
 {
     public EBlockType blockType;
+    [SerializeField] float[] possibleRotations;
 
     [SerializeField] Transform centrePosition;
 
@@ -19,16 +20,10 @@ public class CityBlockGeneration : MonoBehaviour
     [SerializeField] GameObject[] appartmentPrefabs;
 
 
-    private void Awake()
-    {
-        SpawnMyBlock();
-    }
-
-
-    void SpawnMyBlock()
+    public void SpawnMyBlock()
     {
         //Spawn my centre piece.
-        Instantiate(PickMyCentre(), centrePosition.position, Quaternion.identity, centrePosition);
+        Instantiate(PickMyCentre(), centrePosition.position, Quaternion.Euler(0, possibleRotations[Random.Range(0,possibleRotations.Length - 1)] ,0), centrePosition);
     }
 
     private GameObject PickMyCentre()

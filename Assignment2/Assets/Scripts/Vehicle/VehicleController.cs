@@ -65,8 +65,10 @@ public class VehicleController : MonoBehaviour
         }
         else
         {
-            wcFL.motorTorque = 0f;
-            wcFR.motorTorque = 0f;
+            for (int i = 0; i < myDriveWheels.Length; i++)
+            {
+                myDriveWheels[i].motorTorque = 0f;
+            }
         }
 
         if (Input.GetAxisRaw("Horizontal") != 0f)

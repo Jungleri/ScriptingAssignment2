@@ -13,7 +13,7 @@ public class AIManager : MonoBehaviour
     public int targetActiveAI = 0;
 
     GameObject player;
-    [SerializeField] ScoreManager scoreManager;
+    ScoreManager scoreManager;
 
 
     void Awake()
@@ -43,12 +43,12 @@ public class AIManager : MonoBehaviour
     {
         while (true)
         {   //Generate a random position within maxSpawnDist units of the player vehicle.
-            Vector3 direction = Random.insideUnitCircle * maxSpawnDist;
-            Vector3 hitPos = direction + player.transform.position;
+            Vector2 direction = Random.insideUnitCircle * maxSpawnDist;
+            Vector3 hitPos = new Vector3(direction.x, 0, direction.y) + player.transform.position;
 
             //Generate a NavMeshHit event on our generated position, this tries to find the closest position on a navmesh surface.
             NavMeshHit hit;
-            NavMesh.SamplePosition(hitPos, out hit, 50, 1);
+            NavMesh.SamplePosition(hitPos, out hit, 10, 1);
 
             if (hit.hit)
             {   //If we have a valid position, spawn an a random zombie on our navmesh position, increase the active AI by 1 and return, breaking out of the SpawnAI() function.

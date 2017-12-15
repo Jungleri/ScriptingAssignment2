@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114750063786549322}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
   gameState: 0
   scoreMang: {fileID: 114891029611035480}
   timerMang: {fileID: 114750063786549322}
+  uiMang: {fileID: 0}
 --- !u!114 &114750063786549322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,6 +72,7 @@ MonoBehaviour:
   gameMang: {fileID: 114669358947915230}
   preTimer: 5
   roundTimer: 60
+  targetTime: 0
   timeRemaining: 0
   roundActive: 0
 --- !u!114 &114891029611035480
@@ -85,3 +87,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  score: 0
+  scoreMultiplier: 1
