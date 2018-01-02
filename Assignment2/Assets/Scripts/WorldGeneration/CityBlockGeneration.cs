@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public enum EBlockType{ Office, OfficeOld, Park, Appartment };
@@ -18,6 +19,7 @@ public class CityBlockGeneration : MonoBehaviour
     [SerializeField] GameObject[] officeOldPrefabs;
     [SerializeField] GameObject[] parkPrefabs;
     [SerializeField] GameObject[] appartmentPrefabs;
+    
 
 
     public void SpawnMyBlock()

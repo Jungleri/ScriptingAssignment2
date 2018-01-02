@@ -1,31 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class CityDisplay : MonoBehaviour
 {
     [SerializeField] float cityBlockWidth = 1f;
     [SerializeField] float cityBlockHeight = 1f;
-
-    [SerializeField] GameObject environemtnParentObject;
     [SerializeField] CityBlockGeneration cityBlockBase;
 
     [SerializeField] GameObject environmentParent;
+    List<GameObject> myBlocks = new List<GameObject>();
 
+    private void Start()
+    {
+        //transform.parent.GetComponent<CityGenerator>().GenerateCity(this.transform);
+    }
+
+    public void SetVisible(bool _visible)
+    {
+        this.gameObject.SetActive(_visible);
+    }
 
     public void DrawCity(EBlockType[,] cityMap)
     {
-        if (!environmentParent)
-        {   //If there is an already generated city, destroy it, clearing the previously created one.
-            environmentParent = transform.Find("EnvironmentParentObject(Clone)").gameObject;
-        }
-
-        DestroyImmediate(environmentParent);
-
-
         //Create an environment parent.
-        environmentParent = Instantiate(environemtnParentObject, this.transform.position, Quaternion.identity, this.transform);
+        environmentParent = Instantiate(environmentParent, this.transform.position, Quaternion.identity, this.transform);
 
         //Get the map width and height so we can go through each one further down.
         float mapWidth = cityMap.GetLength(0);
@@ -40,11 +41,12 @@ public class CityDisplay : MonoBehaviour
             for (int x = 0; x < mapHeight; x++)
             {   //For each tile in our grid, starting at the top left, spawn the predetermined city block.
                 Vector3 position = new Vector3(topLeftX + (x * cityBlockWidth), this.transform.position.y, topLeftZ - (y * cityBlockHeight));
-                GameObject block = Instantiate(cityBlockBase.gameObject, position, Quaternion.identity, environmentParent.transform);
+                GameObject block = Instantiate(cityBlockBase.gameObject, position + this.transform.position, Quaternion.identity, environmentParent.transform);
                 //Set the block type of the newly spawned city block.
                 block.GetComponent<CityBlockGeneration>().blockType = cityMap[y, x];
                 block.GetComponent<CityBlockGeneration>().SpawnMyBlock();
             }
         }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Threading;
 using UnityEngine;
 
 
@@ -8,6 +10,8 @@ public class CityGenerator : MonoBehaviour
     [Header("Map Values")]
     public int mapWidth;
     public int mapHeight;
+    Transform currentBlock;
+    EBlockType[,] cityBlockMap;
 
     [Header("Variation Values")]
     public float noiseScale;
@@ -19,14 +23,21 @@ public class CityGenerator : MonoBehaviour
     public bool autoUpdate;
     public CityBlockType[] blockVariations;
 
+    Queue<CityThreadInfo<EBlockType[,]>> cityDataThreadInfoQueue = new Queue<CityThreadInfo<EBlockType[,]>>();
 
     public void GenerateCity()
+    { }
+
+    public EBlockType[,] GenerateCity(Transform _parent)
     {
+        currentBlock = _parent;
+
         //Generate a noisemap using our NoiseGenerator class.
         float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, offset);
 
         //From this noisemap, create an array of city blocks.
-        EBlockType[,] cityBlockMap = new EBlockType[mapWidth,mapHeight];
+        cityBlockMap = new EBlockType[mapWidth, mapHeight];
+
 
         for (int y = 0; y < mapHeight; y++)
         {
@@ -48,17 +59,51 @@ public class CityGenerator : MonoBehaviour
             }
         }
 
-        //Find our gameobject that 
-        CityDisplay city = FindObjectOfType<CityDisplay>();
-        if(!city)
-        {   //If there is no CityDisplay, warn the user.
-            Debug.Log("[Error] No city render objet present! Please add an object of type 'CityDisplay'.");
-        }
-        else
+        return cityBlockMap;
+    }
+
+
+    //Threading
+    public void RequestCity(Action<EBlockType[,]> callback)
+    {
+        ThreadStart threadStart = delegate
         {
-            city.DrawCity(cityBlockMap);
+            CityDataThread(callback);
+        };
+
+        new Thread(threadStart).Start();
+    }
+
+
+    void CityDataThread(Action<EBlockType[,]> callback)
+    {
+        EBlockType[,] cityData = GenerateCity(currentBlock);
+        lock (cityDataThreadInfoQueue)
+        {
+            cityDataThreadInfoQueue.Enqueue(new CityThreadInfo<EBlockType[,]>(callback, cityData));
         }
     }
+
+
+    private void Update()
+    {
+        if(cityDataThreadInfoQueue.Count > 0)
+        {
+            for (int i = 0; i < cityDataThreadInfoQueue.Count; i++)
+            {
+                CityThreadInfo<EBlockType[,]> threadInfo = cityDataThreadInfoQueue.Dequeue();
+                threadInfo.callback(threadInfo.parameter);
+            }
+        }
+    }
+
+
+
+    public void DrawTheBlock(CityDisplay city)
+    {
+        city.DrawCity(cityBlockMap);
+    }
+
 
 
     void OnValidate()
@@ -77,6 +122,19 @@ public class CityGenerator : MonoBehaviour
         if (octaves < 0)
         {
             octaves = 0;
+        }
+    }
+
+
+    struct CityThreadInfo<T>
+    {
+        public readonly Action<T> callback;
+        public readonly T parameter;
+
+        public CityThreadInfo(Action<T> callback, T parameter)
+        {
+            this.callback = callback;
+            this.parameter = parameter;
         }
     }
 }

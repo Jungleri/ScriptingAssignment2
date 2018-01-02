@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4304854468954448}
   - component: {fileID: 114846567439863260}
+  - component: {fileID: 114871238901781258}
   m_Layer: 0
   m_Name: CityGenerator
   m_TagString: Untagged
@@ -53,18 +54,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapWidth: 4
   mapHeight: 4
-  noiseScale: 1
-  octaves: 1
-  persistance: 0.46
-  seed: 31
+  noiseScale: 0.15
+  octaves: 2
+  seed: 258
   offset: {x: 0, y: 0}
   autoUpdate: 0
   blockVariations:
   - name: Block_01
-    shareOfThisType: 0.7
-    blockPrefab: {fileID: 114930805569774674, guid: e2b9678ea79c97245becd1aafdec61fe,
-      type: 2}
+    shareOfThisType: 0.33
+    blockType: 0
   - name: Block_02
+    shareOfThisType: 0.6
+    blockType: 3
+  - name: Block_03
+    shareOfThisType: 0.7
+    blockType: 2
+  - name: Block_03
     shareOfThisType: 1
-    blockPrefab: {fileID: 114850231598128654, guid: 7c62e2e9956c06d43a3357ae845b9845,
-      type: 2}
+    blockType: 1
+--- !u!114 &114871238901781258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485734751730178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcff3cb958fdd5e48846762e8c564857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  displayPrefab: {fileID: 1792824544000966, guid: 3be92bcfcfcc562428d09433fec1fedd,
+    type: 2}

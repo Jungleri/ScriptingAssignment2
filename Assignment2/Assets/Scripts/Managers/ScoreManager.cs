@@ -23,6 +23,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+
     public void IncreaseScore(float _scoreToAdd)
     {
         score += (_scoreToAdd * scoreMultiplier);

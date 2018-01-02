@@ -9,7 +9,12 @@ public class VehicleSelector : MonoBehaviour
     public int carNo = 1;
     [SerializeField] Transform[] vehicles;
     Transform selectedCar;
+    [SerializeField] GameObject[] vehiclePrefabs;
 
+    public GameObject GetVehicle()
+    {
+        return vehiclePrefabs[carNo - 1];
+    }
 
     public void NextVehicle(bool _forwards)
     {

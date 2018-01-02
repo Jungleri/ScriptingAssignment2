@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1982787982192642}
+  m_RootGameObject: {fileID: 1792824544000966}
   m_IsPrefabParent: 1
---- !u!1 &1982787982192642
+--- !u!1 &1792824544000966
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4407982978380186}
-  - component: {fileID: 114907140157084678}
+  - component: {fileID: 4082483996042100}
+  - component: {fileID: 114297896852667964}
   m_Layer: 0
   m_Name: CityDisplay
   m_TagString: Untagged
@@ -27,25 +27,54 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4407982978380186
+--- !u!1 &1869410007877290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4587563918894396}
+  m_Layer: 0
+  m_Name: EnvironmentParentObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4082483996042100
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1982787982192642}
+  m_GameObject: {fileID: 1792824544000966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4587563918894396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114907140157084678
+--- !u!4 &4587563918894396
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869410007877290}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4082483996042100}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114297896852667964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1982787982192642}
+  m_GameObject: {fileID: 1792824544000966}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 620c68ff264a0d94c918624eacd4e4cd, type: 3}
@@ -53,7 +82,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityBlockWidth: 60
   cityBlockHeight: 60
-  environemtnParentObject: {fileID: 1128688662864120, guid: dcf16ffa90e3a5b478772bd3b92a328f,
-    type: 2}
   cityBlockBase: {fileID: 114812170424112998, guid: 17e7089cac3c59448a5ec76fff6f3125,
     type: 2}
+  environmentParent: {fileID: 1869410007877290}

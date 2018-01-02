@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreMang;
     [SerializeField] TimerManager timerMang;
     [SerializeField] GameUIManager uiMang;
+    [SerializeField] VehicleSelector vehicleSelector;
+
+    public GameObject playerVehicle;
 
     int currentLevel = 0;
 
@@ -55,7 +58,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {   //When we hit the 'Start' button on the title screen, load the main scene and start level 1.
-        SceneManager.LoadScene("MainGameScene");
+        playerVehicle = vehicleSelector.GetVehicle();
+        SceneManager.LoadScene(1);
         StartLevel(1);
     }
 

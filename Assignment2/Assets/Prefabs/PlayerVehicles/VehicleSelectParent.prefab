@@ -1482,7 +1482,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206246420987864}
   m_LocalRotation: {x: 0.06870074, y: 0.93078977, z: -0.2374197, w: -0.26933727}
-  m_LocalPosition: {x: -6.0196657, y: -2.130507, z: -3.8836043}
+  m_LocalPosition: {x: 0.12396239, y: 10.032156, z: 12.545555}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4613488254838056}
@@ -2627,6 +2627,10 @@ MonoBehaviour:
   - {fileID: 4613488254838056}
   - {fileID: 4796616324160756}
   - {fileID: 4969256489527072}
+  vehiclePrefabs:
+  - {fileID: 1222738040212054, guid: 6ccdf25d4428e1d48a6ef42a64335cd3, type: 2}
+  - {fileID: 1595118401093360, guid: f8d28b4c3e69f4e4a9c200a3e928a3ae, type: 2}
+  - {fileID: 1081800112734796, guid: 2cd9e3e3085e06f42ab1bb0f48ad28cb, type: 2}
 --- !u!114 &114341632255076268
 MonoBehaviour:
   m_ObjectHideFlags: 1

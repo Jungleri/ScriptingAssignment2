@@ -44,7 +44,7 @@ public class AIManager : MonoBehaviour
         while (true)
         {   //Generate a random position within maxSpawnDist units of the player vehicle.
             Vector2 direction = Random.insideUnitCircle * maxSpawnDist;
-            Vector3 hitPos = new Vector3(direction.x, 0, direction.y) + player.transform.position;
+            Vector3 hitPos = new Vector3(direction.x, 10, direction.y) + player.transform.position;
 
             //Generate a NavMeshHit event on our generated position, this tries to find the closest position on a navmesh surface.
             NavMeshHit hit;

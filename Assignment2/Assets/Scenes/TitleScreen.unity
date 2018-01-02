@@ -2925,6 +2925,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114669358947915230, guid: 92d53bfc539f4d74d91c3c145a5e8ad0,
+        type: 2}
+      propertyPath: vehicleSelector
+      value: 
+      objectReference: {fileID: 1465899499}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92d53bfc539f4d74d91c3c145a5e8ad0, type: 2}
   m_IsPrefabParent: 0
