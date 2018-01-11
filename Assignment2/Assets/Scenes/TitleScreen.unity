@@ -2930,6 +2930,11 @@ Prefab:
       propertyPath: vehicleSelector
       value: 
       objectReference: {fileID: 1465899499}
+    - target: {fileID: 114750063786549322, guid: 92d53bfc539f4d74d91c3c145a5e8ad0,
+        type: 2}
+      propertyPath: roundTimer
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92d53bfc539f4d74d91c3c145a5e8ad0, type: 2}
   m_IsPrefabParent: 0

@@ -19,7 +19,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] MultiplierColour[] multiplierColour;
 
     [Header("Round Score")]
-    Text endRoundScore;
+    [SerializeField] Text endRoundScore;
     [SerializeField] Text[] roundScoreOwners;
     bool endRoundScoreActive = false;
 

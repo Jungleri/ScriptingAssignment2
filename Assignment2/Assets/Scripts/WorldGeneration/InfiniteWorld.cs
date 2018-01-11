@@ -70,7 +70,7 @@ public class InfiniteWorld : MonoBehaviour
             for (int xOff = -chunksVisible; xOff <= chunksVisible; xOff++)
             {
                 Vector2 chunkCoord = new Vector2(playerChunkX + xOff, playerChunkY + yOff);
-                Debug.Log(chunkCoord);
+                //Debug.Log(chunkCoord);
 
                 if (cityChunkDictionary.ContainsKey (chunkCoord))
                 {

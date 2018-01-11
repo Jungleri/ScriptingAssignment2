@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     public void EndRound(int _round)
     {
-        roundScores[_round - 1] = score;
+        //roundScores[_round - 1] = score;
         ResetMultiplier();
     }
 

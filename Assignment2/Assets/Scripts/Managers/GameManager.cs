@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
         timerMang.gameState = _gameState;
         scoreMang.gameState = _gameState;
         uiMang.gameState = _gameState;
+
+        Debug.Log("[Game] Entering " + _gameState);
     }
 
 
@@ -80,17 +82,19 @@ public class GameManager : MonoBehaviour
     {
         SpawnPlayer();
         GameObject.FindObjectOfType<AutoCam>().m_Target = playerVehicle.transform;
-        UpdateGameState(EGameState.Game);
-        StartLevel(1);
+        StartLevel();
     }
 
-    void StartLevel(int difficulty)
+    void StartLevel()
     {   //############################## Start a level. ##############################
         currentLevel++;
         if (currentLevel <= 5)
         {   //If we are on level 1 - 5, continue.
             Debug.Log("[Game] Level: " + currentLevel);
-            coinMang.targetCoins = Mathf.RoundToInt(200 - (Mathf.Pow((currentLevel * 2), 2)));
+            playerVehicle.transform.position = Vector3.zero;
+            playerVehicle.transform.rotation = Quaternion.identity;
+            UpdateGameState(EGameState.PreGame);
+            coinMang.targetCoins = Mathf.RoundToInt(110 - (Mathf.Pow((currentLevel * 1.5f), 2)));
             timerMang.PreRoundCountdown();
         }
         else
@@ -111,10 +115,16 @@ public class GameManager : MonoBehaviour
         }
         else if(gameState == EGameState.Game)
         {   //If we were in the game, set the state to Cooldown.
-            Debug.Log("[Game] Round, entering Cooldown.");
+            Debug.Log("[Game] Round over, entering Cooldown.");
             UpdateGameState(EGameState.Cooldown);
             uiMang.EndRound(currentLevel, scoreMang.score);
             scoreMang.EndRound(currentLevel);
+            timerMang.CooldownCountdown();
+        }
+        else if(gameState == EGameState.Cooldown)
+        {   //If the cooldown has ended, start the next level (if applicable).
+            Debug.Log("[Game] Cooldown over, entering next PreRound.");
+            StartLevel();
         }
     }
 
