@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+    public EGameState gameState;
+
     [Header("Timer")]
     [SerializeField] Text timerText;
     [SerializeField] float timeRemaining = 0.0f;
+
     [Header("Score")]
     [SerializeField] Text scoreText;
     [SerializeField] float score = 0.0f;
@@ -15,6 +18,16 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] float scoreMultiplier = 1.0f;
     [SerializeField] MultiplierColour[] multiplierColour;
 
+    [Header("Round Score")]
+    Text endRoundScore;
+    [SerializeField] Text[] roundScoreOwners;
+    bool endRoundScoreActive = false;
+
+
+    private void Awake()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().uiMang = this;
+    }
 
     public void UpdateTimeRemaining(float _timeRemaining)
     {   //Updating the timer on HUD.
@@ -26,11 +39,26 @@ public class GameUIManager : MonoBehaviour
         timeRemaining = _timeRemaining;
     }
 
+
+    private void Update()
+    {
+        if (endRoundScoreActive)
+        {
+            if (gameState == EGameState.Game)
+            {
+                CloseEndRoundScore();
+                endRoundScoreActive = false;
+            }
+        }
+    }
+
+
     public void UpdateScore(float _score)
     {   //Updating the score on HUD.
         score = _score;
         scoreText.text = (Mathf.Round(score)).ToString();
     }
+
 
     public void UpdateScoreMultiplier(float _scoreMultiplier)
     {   //Updating the score multiplier on HUD.
@@ -45,7 +73,39 @@ public class GameUIManager : MonoBehaviour
             }
         }
     }
+
+
+    public void EndRound(int _level, float _score)
+    {   //When a round ends, enable the 'Big Score UI' and update the level score.
+        endRoundScore.text = _score.ToString();
+        roundScoreOwners[_level - 1].text = _score.ToString();
+        endRoundScore.gameObject.SetActive(true);
+
+    }
+
+
+    void CloseEndRoundScore()
+    {
+        endRoundScore.gameObject.SetActive(false);
+    }
+
+
+    public void EndGame(float _score)
+    {
+        StartCoroutine(EndGameDisplay());
+    }
+
+
+    IEnumerator EndGameDisplay()
+    {
+        for (int i = 0; i < roundScoreOwners.Length; i++)
+        {   //In turn, enable each of the round scores.
+            yield return new WaitForSeconds(0.5f);
+            roundScoreOwners[i - 1].gameObject.SetActive(true);
+        }
+    }
 }
+
 
 [System.Serializable]
 public struct MultiplierColour

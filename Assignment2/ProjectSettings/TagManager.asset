@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AI
   - GameManager
+  - Camera
   layers:
   - Default
   - TransparentFX

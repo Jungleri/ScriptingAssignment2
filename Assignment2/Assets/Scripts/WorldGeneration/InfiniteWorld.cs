@@ -23,6 +23,7 @@ public class InfiniteWorld : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().playerVehicle.transform;
         gen = this.gameObject.GetComponent<CityGenerator>();
         playerPos = new Vector2(player.position.x, player.position.z);
         UpdateVisible();
@@ -31,16 +32,23 @@ public class InfiniteWorld : MonoBehaviour
 
     private void Update()
     {
-        if (Vector2.Distance(playerPos, new Vector2(player.position.x, player.position.z)) > 10)
+        if (player != null)
         {
-            playerPos = new Vector2(player.position.x, player.position.z);
-            UpdateVisible();
+            if (Vector2.Distance(playerPos, new Vector2(player.position.x, player.position.z)) > 10)
+            {
+                playerPos = new Vector2(player.position.x, player.position.z);
+                UpdateVisible();
+            }
+            else if (start)
+            {
+                playerPos = new Vector2(player.position.x, player.position.z);
+                UpdateVisible();
+                start = false;
+            }
         }
-        else if (start)
+        else
         {
-            playerPos = new Vector2(player.position.x, player.position.z);
-            UpdateVisible();
-            start = false;
+            player = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().playerVehicle.transform;
         }
     }
 

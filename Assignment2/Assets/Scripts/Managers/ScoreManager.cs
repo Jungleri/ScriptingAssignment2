@@ -9,6 +9,8 @@ public class ScoreManager : MonoBehaviour
     public float scoreMultiplier = 1.0f;
     float resetTimer = 0f;
 
+    float[] roundScores;
+
 
     private void Update()
     {
@@ -21,6 +23,13 @@ public class ScoreManager : MonoBehaviour
         {
             ResetMultiplier();
         }
+    }
+
+
+    public void EndRound(int _round)
+    {
+        roundScores[_round - 1] = score;
+        ResetMultiplier();
     }
 
 

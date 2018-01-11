@@ -6,31 +6,40 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public CoinManager coinManager;
-    [SerializeField] float requiredHitImpact;
-    [SerializeField] float myScoreValue = 10;
+
+    [SerializeField] float myScoreValue;
+    [SerializeField] Rigidbody rb;
+
     bool dead = false;
 
 
-    public bool CollideWith(Vector3 _velocity)
-    {   
-        //If we are hit with enough force to kill, return the result and call the Die() function.
-        Debug.Log(_velocity.magnitude);
-        if (_velocity.magnitude > requiredHitImpact && !dead)
-        {
+    public void DestroyCoin()
+    {   //When we want to manually destroy a coin, call this function.
+        coinManager.CoinRemoved(myScoreValue, false);
+        dead = true;
+        Destroy(this.gameObject);
+    }
+
+
+    private void OnCollisionEnter(Collision _col)
+    {
+        if(_col.gameObject.CompareTag("Player") && !dead)
+        {   //If the player hit us, inform the coin manager.
             coinManager.CoinRemoved(myScoreValue, true);
             dead = true;
-            return true;
+
+            StartCoroutine(CoinTimeout());
         }
         else
-        {  
-            //If I am dead or the impact wasn't enough, return false.
-            dead = true;
-            return false;
+        {   //If it wasnt the player, we don't care.
+            return;
         }
     }
 
+
     IEnumerator CoinTimeout()
-    {
+    {   //After 1 second passes, the coin will be destroyed.
+        rb.AddForce(Vector3.up * 10);
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }

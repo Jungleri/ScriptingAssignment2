@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Cameras;
 
 //Enumerator for the game state. Outside of the class so it becomes global, usable in other scrips.
 public enum EGameState { Menu, PreGame, Game, Cooldown, PostGame }
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Game State")]
     public EGameState gameState = EGameState.PreGame;
+
+    [Header("Game Managing Scripts")]
     [SerializeField] ScoreManager scoreMang;
     [SerializeField] TimerManager timerMang;
-    [SerializeField] GameUIManager uiMang;
+    public GameUIManager uiMang;
+    public CoinManager coinMang;
+
+    [Header("Other")]
     [SerializeField] VehicleSelector vehicleSelector;
+    GameObject chosenVehicle;
+
 
     public GameObject playerVehicle;
+
 
     int currentLevel = 0;
 
@@ -36,7 +46,7 @@ public class GameManager : MonoBehaviour
 
 
     private void Update()
-    {   //Branch into a separate function depending on the games state.
+    {   //Branch into a separate update functions depending on the games state.
         if(gameState == EGameState.Game)
         {
             GameUpdateLoop();
@@ -53,22 +63,41 @@ public class GameManager : MonoBehaviour
         gameState = _gameState;
         timerMang.gameState = _gameState;
         scoreMang.gameState = _gameState;
+        uiMang.gameState = _gameState;
     }
 
 
     public void StartGame()
     {   //When we hit the 'Start' button on the title screen, load the main scene and start level 1.
-        playerVehicle = vehicleSelector.GetVehicle();
+        chosenVehicle = vehicleSelector.GetVehicle();
         SceneManager.LoadScene(1);
-        StartLevel(1);
+        //Add the delegate 'OnSceneLoaded' to receive and event once the scene has loaded sucessfully.
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SpawnPlayer();
+        GameObject.FindObjectOfType<AutoCam>().m_Target = playerVehicle.transform;
+        UpdateGameState(EGameState.Game);
+        StartLevel(1);
+    }
+
     void StartLevel(int difficulty)
     {   //############################## Start a level. ##############################
-        Debug.Log("Level: " + currentLevel);
         currentLevel++;
-        timerMang.PreRoundCountdown();
+        if (currentLevel <= 5)
+        {   //If we are on level 1 - 5, continue.
+            Debug.Log("[Game] Level: " + currentLevel);
+            coinMang.targetCoins = Mathf.RoundToInt(200 - (Mathf.Pow((currentLevel * 2), 2)));
+            timerMang.PreRoundCountdown();
+        }
+        else
+        {   //We hit this block when the game is over. We must save the score and load the Post-Game Scene.
+            UpdateGameState(EGameState.PostGame);
+            Debug.Log("[Game] Game over.");
+        }
     }
 
 
@@ -81,10 +110,18 @@ public class GameManager : MonoBehaviour
             timerMang.RoundCountdown();
         }
         else if(gameState == EGameState.Game)
-        {   //If we were in the game, set the state to postgame.
-            Debug.Log("[Game] Game over, entering PostGame.");
-            UpdateGameState(EGameState.PostGame);
+        {   //If we were in the game, set the state to Cooldown.
+            Debug.Log("[Game] Round, entering Cooldown.");
+            UpdateGameState(EGameState.Cooldown);
+            uiMang.EndRound(currentLevel, scoreMang.score);
+            scoreMang.EndRound(currentLevel);
         }
+    }
+
+
+    void SpawnPlayer()
+    {
+        playerVehicle = Instantiate(chosenVehicle, Vector3.zero, Quaternion.identity);
     }
 
 
