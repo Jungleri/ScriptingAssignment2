@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 4602688949254778}
   - component: {fileID: 54949896042844578}
   - component: {fileID: 114451643033565754}
-  - component: {fileID: 114246977975302332}
   - component: {fileID: 64107785171264500}
   - component: {fileID: 208758242099057984}
   m_Layer: 8
@@ -841,18 +840,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wc: {fileID: 146922662715616560}
   wheelGeo: {fileID: 4918576602796414}
---- !u!114 &114246977975302332
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1222738040212054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aeed3b485548c646879c979a7d1472b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 54949896042844578}
 --- !u!114 &114305338744013070
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
+//##################### DEPRECATED #####################
 public class AIManager : MonoBehaviour
 {
     [SerializeField] float maxSpawnDist = 400;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+//######################## DEPRECATED########################
 public class AIZombie : MonoBehaviour
 {
     [SerializeField] float requiredHitImpact;
@@ -25,11 +27,9 @@ public class AIZombie : MonoBehaviour
     private void FixedUpdate()
     {
         if(!dead)
-        {
-            //If I am not dead, wander around the map.
+        {   //If I am not dead, wander around the map.
             if (!nma.hasPath)
-            {
-                //Generate a random position we will try and move towards.
+            {   //Generate a random position we will try and move towards.
                 Vector2 direction = Random.insideUnitCircle * 20;
                 Vector3 hitPos = new Vector3(direction.x, 0, direction.y) + this.transform.position;
 
@@ -47,12 +47,12 @@ public class AIZombie : MonoBehaviour
 
     public bool CollideWith(Vector3 _velocity)
     {   //If we are hit with enough force to kill, return the result and call the Die() function.
-            Debug.Log(_velocity.magnitude);
-            if (_velocity.magnitude > requiredHitImpact && !dead)
-            {
-                Die();
-                return true;
-            }
+        Debug.Log(_velocity.magnitude);
+        if (_velocity.magnitude > requiredHitImpact && !dead)
+        {
+            Die();
+            return true;
+        }
         else
         {   //If I am dead or the impact wasn't enough, return false.
             return false;
@@ -81,6 +81,7 @@ public class AIZombie : MonoBehaviour
             dead = true;
         }
     }
+
 
     void SetKinematic(bool _value)
     {

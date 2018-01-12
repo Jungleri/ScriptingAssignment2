@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
+//Public enumerator which denotes the types of building we can spawn.
 public enum EBlockType{ Office, OfficeOld, Park, Appartment };
+
 
 [ExecuteInEditMode]
 public class CityBlockGeneration : MonoBehaviour
@@ -23,8 +24,7 @@ public class CityBlockGeneration : MonoBehaviour
 
 
     public void SpawnMyBlock()
-    {
-        //Spawn my centre piece.
+    {   //Spawn my centre piece.
         Instantiate(PickMyCentre(), centrePosition.position, Quaternion.Euler(0, possibleRotations[Random.Range(0,possibleRotations.Length - 1)] ,0), centrePosition);
     }
 

@@ -13,10 +13,6 @@ public class CityDisplay : MonoBehaviour
     [SerializeField] GameObject environmentParent;
     List<GameObject> myBlocks = new List<GameObject>();
 
-    private void Start()
-    {
-        //transform.parent.GetComponent<CityGenerator>().GenerateCity(this.transform);
-    }
 
     public void SetVisible(bool _visible)
     {
@@ -24,8 +20,7 @@ public class CityDisplay : MonoBehaviour
     }
 
     public void DrawCity(EBlockType[,] cityMap)
-    {
-        //Create an environment parent.
+    {   //Create an environment parent which hold all of the buildings out of the way.
         environmentParent = Instantiate(environmentParent, this.transform.position, Quaternion.identity, this.transform);
 
         //Get the map width and height so we can go through each one further down.
@@ -47,6 +42,5 @@ public class CityDisplay : MonoBehaviour
                 block.GetComponent<CityBlockGeneration>().SpawnMyBlock();
             }
         }
-
     }
 }

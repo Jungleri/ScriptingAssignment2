@@ -28,19 +28,11 @@ public class Coin : MonoBehaviour
             coinManager.CoinRemoved(myScoreValue, true);
             dead = true;
 
-            StartCoroutine(CoinTimeout());
+            Destroy(this.gameObject);
         }
         else
         {   //If it wasnt the player, we don't care.
             return;
         }
-    }
-
-
-    IEnumerator CoinTimeout()
-    {   //After 1 second passes, the coin will be destroyed.
-        rb.AddForce(Vector3.up * 10);
-        yield return new WaitForSeconds(1);
-        Destroy(this.gameObject);
     }
 }

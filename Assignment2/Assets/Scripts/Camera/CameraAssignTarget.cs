@@ -6,20 +6,14 @@ using UnityEngine;
 
 public class CameraAssignTarget : MonoBehaviour
 {
-    [SerializeField]
     GameObject player;
 
 
-    void Start ()
+    void Update ()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
         if (!player)
-        {   //If there is no tagged player present, for whatever reason, throw out an error.
-            Debug.Log("[ERROR] No player character found by the camera. Check player vehicle has spawned with correct tags.");
-        }
-        else
-        {
+        {   //If we do not currently have reference to the player character, grab it from the GameManager and assign it to the AutoCam script.
+            player = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().playerVehicle;
             this.GetComponent<AutoCam>().m_Target = player.transform;
         }
     }

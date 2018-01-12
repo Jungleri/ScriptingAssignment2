@@ -21,11 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Other")]
     [SerializeField] VehicleSelector vehicleSelector;
     GameObject chosenVehicle;
-
-
     public GameObject playerVehicle;
-
-
     int currentLevel = 0;
 
 
@@ -59,7 +55,7 @@ public class GameManager : MonoBehaviour
 
 
     void UpdateGameState(EGameState _gameState)
-    {   //Updating the game state on this, and other managing scripts.
+    {   //Updating the game state on this, and other scripts which require the information.
         gameState = _gameState;
         timerMang.gameState = _gameState;
         scoreMang.gameState = _gameState;
@@ -79,7 +75,7 @@ public class GameManager : MonoBehaviour
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
+    {   //Once our scene has loaded correctly, spawn the player, assign it to the camera, and begin the first level.
         SpawnPlayer();
         GameObject.FindObjectOfType<AutoCam>().m_Target = playerVehicle.transform;
         StartLevel();
@@ -91,10 +87,11 @@ public class GameManager : MonoBehaviour
         if (currentLevel <= 5)
         {   //If we are on level 1 - 5, continue.
             Debug.Log("[Game] Level: " + currentLevel);
+            //Reset the player back to 0,0,0 for a new level.
             playerVehicle.transform.position = Vector3.zero;
             playerVehicle.transform.rotation = Quaternion.identity;
             UpdateGameState(EGameState.PreGame);
-            coinMang.targetCoins = Mathf.RoundToInt(110 - (Mathf.Pow((currentLevel * 1.5f), 2)));
+            coinMang.NewRound(currentLevel);
             timerMang.PreRoundCountdown();
         }
         else
@@ -122,8 +119,9 @@ public class GameManager : MonoBehaviour
             timerMang.CooldownCountdown();
         }
         else if(gameState == EGameState.Cooldown)
-        {   //If the cooldown has ended, start the next level (if applicable).
+        {   //If the cooldown has ended, clear the current coins and start the next level (if applicable).
             Debug.Log("[Game] Cooldown over, entering next PreRound.");
+            coinMang.ClearRound();
             StartLevel();
         }
     }

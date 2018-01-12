@@ -18,16 +18,17 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] float scoreMultiplier = 1.0f;
     [SerializeField] MultiplierColour[] multiplierColour;
 
-    [Header("Round Score")]
+    [Header("Per-Round Score")]
     [SerializeField] Text endRoundScore;
     [SerializeField] Text[] roundScoreOwners;
     bool endRoundScoreActive = false;
 
 
     private void Awake()
-    {
+    {   //When we are initialized, send reference to ourselves, to the GameManager.
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().uiMang = this;
     }
+
 
     public void UpdateTimeRemaining(float _timeRemaining)
     {   //Updating the timer on HUD.
@@ -45,7 +46,7 @@ public class GameUIManager : MonoBehaviour
         if (endRoundScoreActive)
         {
             if (gameState == EGameState.Game)
-            {
+            {   //If we are in Game mode, and the post-round UI elements are still open, close them.
                 CloseEndRoundScore();
                 endRoundScoreActive = false;
             }
@@ -80,26 +81,25 @@ public class GameUIManager : MonoBehaviour
         endRoundScore.text = _score.ToString();
         roundScoreOwners[_level - 1].text = _score.ToString();
         endRoundScore.gameObject.SetActive(true);
-
     }
 
 
     void CloseEndRoundScore()
-    {
+    {   //Disable the large round score.
         endRoundScore.gameObject.SetActive(false);
     }
 
 
     public void EndGame(float _score)
-    {
+    {   //Simply start the EndGameDisplay coroutine, which shows the players score per-level.
         StartCoroutine(EndGameDisplay());
     }
 
 
     IEnumerator EndGameDisplay()
-    {
+    {   
         for (int i = 0; i < roundScoreOwners.Length; i++)
-        {   //In turn, enable each of the round scores.
+        {   //In turn, enable each of the round score text elements.
             yield return new WaitForSeconds(0.5f);
             roundScoreOwners[i - 1].gameObject.SetActive(true);
         }

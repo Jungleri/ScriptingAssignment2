@@ -8,19 +8,18 @@ public class ScoreManager : MonoBehaviour
     public float score;
     public float scoreMultiplier = 1.0f;
     float resetTimer = 0f;
-
     float[] roundScores;
 
 
     private void Update()
     {
         if ((gameState == EGameState.Game) && (scoreMultiplier != 1.0f))
-        {
+        {   //If there is a multiplier, start counting up.
             resetTimer += Time.deltaTime;
         }
 
-        if(resetTimer >= 10.0f)
-        {
+        if(resetTimer >= 8.0f)
+        {   //If the counter hits 8+, reset the multiplier.
             ResetMultiplier();
         }
     }
@@ -34,20 +33,20 @@ public class ScoreManager : MonoBehaviour
 
 
     public void IncreaseScore(float _scoreToAdd)
-    {
+    {   //When we want to add score, increase it along side the multiplier.
         score += (_scoreToAdd * scoreMultiplier);
         IncreaseMultiplier();
     }
 
     
     void IncreaseMultiplier()
-    {
+    {   //Simply ass 0.1 to the multiplier.
         scoreMultiplier += 0.1f;
     }
 
 
     void ResetMultiplier()
-    {
+    {   //Set the multiplier back to 0;
         scoreMultiplier = 1.0f;
         resetTimer = 0.0f;
     }

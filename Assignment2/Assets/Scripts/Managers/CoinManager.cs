@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
+    [Header("Importnt Values")]
     public bool spawnCoins = false;
     public int targetCoins = 100;
     int currentCoins;
     [SerializeField] float maxSpawnDist = 350;
     [SerializeField] Coin[] coinPrefabs;
 
+    [Header("Object References")]
     GameObject player;
     ScoreManager scoreManager;
     GameManager gameManager;
@@ -21,8 +23,7 @@ public class CoinManager : MonoBehaviour
         player = player = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().playerVehicle;
 
         if (!player)
-        {   
-            //If there is no tagged player present, for whatever reason, throw out an error.
+        {   //If there is no tagged player present, for whatever reason, throw out an error.
             Debug.Log("[ERROR] No player character found by the AIManager. Check player vehicle has spawned with correct tags.");
             player = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().playerVehicle;
         }
@@ -44,10 +45,9 @@ public class CoinManager : MonoBehaviour
             player = gameManager.playerVehicle;
         }
 
-        while(currentCoins < targetCoins)
-        {   //Could use IF statement instead, would do the same thing. Spawn 1 per frame with the break.
+        if(currentCoins < targetCoins && spawnCoins)
+        {   //If we can spawn a coin, do so.
             SpawnCoin();
-            break;
         }
 	}
 
@@ -58,6 +58,7 @@ public class CoinManager : MonoBehaviour
         {
             return;
         }
+
         //Generate a random position within maxSpawnDist units of the player vehicle.
         Vector2 direction = Random.insideUnitCircle * maxSpawnDist;
         Vector3 hitPos = new Vector3(direction.x, 10, direction.y) + player.transform.position;
@@ -80,5 +81,23 @@ public class CoinManager : MonoBehaviour
         }
         //Remove a coin from our active count so it can be replenished.
         currentCoins--;
+    }
+
+
+    public void ClearRound()
+    {   //Find all of the coins we spawned and destroy them. A new round is beginning.
+        spawnCoins = false;
+        for (int i = 0; i < targetCoins; i++)
+        {
+            Coin _coin = GameObject.FindObjectOfType<Coin>();
+            _coin.DestroyCoin();
+        }
+    }
+
+
+    public void NewRound(int _level)
+    {   //A new round has begun, update the target coins and allow the spawning.
+        targetCoins = Mathf.RoundToInt(125 - (Mathf.Pow((_level * 1.5f), 2)));
+        spawnCoins = true;
     }
 }

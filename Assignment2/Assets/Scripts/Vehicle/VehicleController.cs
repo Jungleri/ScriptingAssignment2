@@ -31,7 +31,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         if(driveType == DriveType.FrontWheelDrive)
-        {
+        {   //If we are FWD, update the drive wheels to reflect this.
 
             myDriveWheels = new WheelCollider[2];
             myDriveWheels[0] = wcFL;
@@ -39,13 +39,13 @@ public class VehicleController : MonoBehaviour
 
         }
         else if(driveType == DriveType.RearWheelDrive)
-        {
+        {   //If we are RWD, update the drive wheels to reflect this.
             myDriveWheels = new WheelCollider[2];
             myDriveWheels[0] = wcRL;
             myDriveWheels[1] = wcRR;
         }
         else if (driveType == DriveType.AllWheelDrive)
-        {
+        {   //If we are 4WD, update the drive wheels to reflect this.
             myDriveWheels = new WheelCollider[4];
             myDriveWheels[0] = wcFL;
             myDriveWheels[1] = wcFR;
@@ -117,9 +117,12 @@ public class VehicleController : MonoBehaviour
 
 
     private void VehicleBreak()
-    {   //Reset the engine torque and apply break power.
-        wcFL.motorTorque = 0f;
-        wcFR.motorTorque = 0f;
+    {   //Reset the engine torque for each of my driving wheels and apply break power.
+        for (int i = 0; i < myDriveWheels.Length; i++)
+        {
+            myDriveWheels[i].motorTorque = 0f;
+        }
+
         wcFL.brakeTorque = breakPower;
         wcFR.brakeTorque = breakPower;
         wcRL.brakeTorque = breakPower;

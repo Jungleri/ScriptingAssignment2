@@ -13,7 +13,7 @@ public class SkylineFollowPlayer : MonoBehaviour
             this.transform.position = new Vector3(player.transform.position.x, -5f, player.transform.position.z);
         }
         else
-        {
+        {   //If there isnt a player, find it.
             player = GameObject.FindGameObjectWithTag("Player");
         }
 	}

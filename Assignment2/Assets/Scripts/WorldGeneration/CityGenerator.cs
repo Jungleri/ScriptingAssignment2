@@ -26,7 +26,9 @@ public class CityGenerator : MonoBehaviour
     Queue<CityThreadInfo<EBlockType[,]>> cityDataThreadInfoQueue = new Queue<CityThreadInfo<EBlockType[,]>>();
 
     public void GenerateCity()
-    { }
+    {
+        //Overload method which was originally used to generate the city in editor.
+    }
 
     public EBlockType[,] GenerateCity(Transform _parent)
     {
@@ -63,23 +65,23 @@ public class CityGenerator : MonoBehaviour
     }
 
 
-    //Threading
+    //Threading for small performance gains.
     public void RequestCity(Action<EBlockType[,]> callback)
     {
         ThreadStart threadStart = delegate
-        {
+        {   //Set up the desired thread.
             CityDataThread(callback);
         };
-
+        //Start the desired thread.
         new Thread(threadStart).Start();
     }
 
 
     void CityDataThread(Action<EBlockType[,]> callback)
-    {
+    {   
         EBlockType[,] cityData = GenerateCity(currentBlock);
         lock (cityDataThreadInfoQueue)
-        {
+        {   //Lock the thread so it cannot be accessed by 2 entities at the same time.
             cityDataThreadInfoQueue.Enqueue(new CityThreadInfo<EBlockType[,]>(callback, cityData));
         }
     }
@@ -88,7 +90,7 @@ public class CityGenerator : MonoBehaviour
     private void Update()
     {
         if(cityDataThreadInfoQueue.Count > 0)
-        {
+        {   //If our thread queue has something in it, hande that something.
             for (int i = 0; i < cityDataThreadInfoQueue.Count; i++)
             {
                 CityThreadInfo<EBlockType[,]> threadInfo = cityDataThreadInfoQueue.Dequeue();
@@ -98,12 +100,10 @@ public class CityGenerator : MonoBehaviour
     }
 
 
-
     public void DrawTheBlock(CityDisplay city)
-    {
+    {   //Instruct the CityDisplay to actually spawn/draw the city.
         city.DrawCity(cityBlockMap);
     }
-
 
 
     void OnValidate()
@@ -127,12 +127,12 @@ public class CityGenerator : MonoBehaviour
 
 
     struct CityThreadInfo<T>
-    {
+    {   //Struct for our ciy generation thread.
         public readonly Action<T> callback;
         public readonly T parameter;
 
         public CityThreadInfo(Action<T> callback, T parameter)
-        {
+        {   //Set the instance callback to the truct callback.
             this.callback = callback;
             this.parameter = parameter;
         }
