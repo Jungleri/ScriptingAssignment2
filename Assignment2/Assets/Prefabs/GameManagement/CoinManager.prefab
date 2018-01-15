@@ -55,4 +55,7 @@ MonoBehaviour:
   targetCoins: 100
   maxSpawnDist: 350
   coinPrefabs:
+  - {fileID: 114492323044056116, guid: 6a40ae30e9084cf42a677a9eaf3d24be, type: 2}
+  - {fileID: 114492323044056116, guid: 75a9141b6e6616c409ad7c1b0eb4543f, type: 2}
+  - {fileID: 114492323044056116, guid: aa4c76057b3c04140963edf71203c732, type: 2}
   - {fileID: 114492323044056116, guid: 511937000ffbdf549864c7a87fcbad1c, type: 2}

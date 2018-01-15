@@ -58,6 +58,14 @@ public class TimerManager : MonoBehaviour
         timerActive = true;
     }
 
+    public void PostGameCountdown()
+    {
+        stopwatch.Reset();
+        targetTime = 10f;
+        stopwatch.Start();
+        timerActive = true;
+    }
+
 
     private void CheckRemainingTime(float _elapsedTime, float _targetTime)
     {   //Update the remaining time var.

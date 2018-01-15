@@ -38,6 +38,16 @@ public class GameManager : MonoBehaviour
     void Start ()
     {   //Sets the game state to menu.
         gameState = EGameState.Menu;
+
+        //If the game is being played again, to prevent duplicate GameManagers, destroy myself, if one already exists.
+        GameManager[] gms = FindObjectsOfType<GameManager>();
+        for (int i = 0; i < gms.Length; i++)
+        {
+            if(gms[i] != this)
+            {
+                DestroyImmediate(this.gameObject);
+            }
+        }
 	}
 
 
@@ -54,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void UpdateGameState(EGameState _gameState)
+    public void UpdateGameState(EGameState _gameState)
     {   //Updating the game state on this, and other scripts which require the information.
         gameState = _gameState;
         timerMang.gameState = _gameState;
@@ -76,9 +86,12 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {   //Once our scene has loaded correctly, spawn the player, assign it to the camera, and begin the first level.
-        SpawnPlayer();
-        GameObject.FindObjectOfType<AutoCam>().m_Target = playerVehicle.transform;
-        StartLevel();
+        if (gameState != EGameState.PostGame || gameState != EGameState.Menu)
+        {
+            SpawnPlayer();
+            GameObject.FindObjectOfType<AutoCam>().m_Target = playerVehicle.transform;
+            StartLevel();
+        }
     }
 
     void StartLevel()
@@ -117,12 +130,28 @@ public class GameManager : MonoBehaviour
             uiMang.EndRound(currentLevel, scoreMang.score);
             scoreMang.EndRound(currentLevel);
             timerMang.CooldownCountdown();
+            coinMang.ClearRound();
         }
         else if(gameState == EGameState.Cooldown)
         {   //If the cooldown has ended, clear the current coins and start the next level (if applicable).
-            Debug.Log("[Game] Cooldown over, entering next PreRound.");
-            coinMang.ClearRound();
-            StartLevel();
+            uiMang.CloseEndRoundScore();
+            if (currentLevel < 5)
+            {
+                Debug.Log("[Game] Cooldown over, entering next PreRound.");
+                StartLevel();
+                coinMang.NewRound(currentLevel);
+            }
+            else
+            {
+                UpdateGameState(EGameState.PostGame);
+                uiMang.EndGame();
+                timerMang.CooldownCountdown();
+            }
+        }
+        else if(gameState == EGameState.PostGame)
+        {   //If the game is done, load the credits scene.
+
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -159,5 +188,11 @@ public class GameManager : MonoBehaviour
         {   //Find the UI Manager
             uiMang = GameObject.FindObjectOfType<GameUIManager>();
         }
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

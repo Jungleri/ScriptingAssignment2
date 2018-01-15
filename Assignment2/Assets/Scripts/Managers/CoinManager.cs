@@ -17,6 +17,8 @@ public class CoinManager : MonoBehaviour
     ScoreManager scoreManager;
     GameManager gameManager;
 
+    List<Coin> activeCoins = new List<Coin>();
+
 
     void Awake()
     {
@@ -45,9 +47,10 @@ public class CoinManager : MonoBehaviour
             player = gameManager.playerVehicle;
         }
 
-        if(currentCoins < targetCoins && spawnCoins)
+        while(currentCoins < targetCoins && spawnCoins)
         {   //If we can spawn a coin, do so.
             SpawnCoin();
+            break;
         }
 	}
 
@@ -66,6 +69,7 @@ public class CoinManager : MonoBehaviour
         if (!(Physics.Raycast(new Ray(hitPos, Vector3.down * 5), 6)))
         {   //If we are not inside a building, spawn a coin and increase the active coin count.
             Coin coin = Instantiate(coinPrefabs[Random.Range(0, (coinPrefabs.Length - 1))], hitPos, Quaternion.identity, this.transform);
+            activeCoins.Add(coin);
             coin.coinManager = this;
             currentCoins++;
             return;
@@ -73,13 +77,14 @@ public class CoinManager : MonoBehaviour
     }
 
 
-    public void CoinRemoved(float _score, bool collected)
+    public void CoinRemoved(float _score, bool _collected, Coin _coin)
     {
-        if(collected)
+        if(_collected)
         {   //If the coin was collected, and didnt get removed in some other way, increase the game score.
             scoreManager.IncreaseScore(_score);
         }
         //Remove a coin from our active count so it can be replenished.
+        activeCoins.Remove(_coin);
         currentCoins--;
     }
 
@@ -87,10 +92,9 @@ public class CoinManager : MonoBehaviour
     public void ClearRound()
     {   //Find all of the coins we spawned and destroy them. A new round is beginning.
         spawnCoins = false;
-        for (int i = 0; i < targetCoins; i++)
+        for (int i = 0; i < activeCoins.Count; i++)
         {
-            Coin _coin = GameObject.FindObjectOfType<Coin>();
-            _coin.DestroyCoin();
+            activeCoins[i].DestroyCoin();
         }
     }
 

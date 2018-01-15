@@ -81,16 +81,17 @@ public class GameUIManager : MonoBehaviour
         endRoundScore.text = _score.ToString();
         roundScoreOwners[_level - 1].text = _score.ToString();
         endRoundScore.gameObject.SetActive(true);
+        endRoundScoreActive = true;
     }
 
 
-    void CloseEndRoundScore()
+    public void CloseEndRoundScore()
     {   //Disable the large round score.
         endRoundScore.gameObject.SetActive(false);
     }
 
 
-    public void EndGame(float _score)
+    public void EndGame()
     {   //Simply start the EndGameDisplay coroutine, which shows the players score per-level.
         StartCoroutine(EndGameDisplay());
     }
@@ -101,7 +102,7 @@ public class GameUIManager : MonoBehaviour
         for (int i = 0; i < roundScoreOwners.Length; i++)
         {   //In turn, enable each of the round score text elements.
             yield return new WaitForSeconds(0.5f);
-            roundScoreOwners[i - 1].gameObject.SetActive(true);
+            roundScoreOwners[i].gameObject.SetActive(true);
         }
     }
 }

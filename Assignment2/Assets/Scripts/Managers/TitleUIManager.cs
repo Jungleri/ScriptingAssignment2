@@ -6,15 +6,27 @@ using UnityEngine.SceneManagement;
 //##################### DEPRECATED #####################
 public class TitleUIManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject InstructionsTab;
+    [SerializeField]
+    GameObject MenuTab;
+    [SerializeField]
+    GameObject vehicleSelect;
 
-    [SerializeField] VehicleSelector vehicleSelector;
-    [SerializeField] GameManager gm;
 
-	public void StartGame()
-    {   //When this is called, give the selected vehicle to the GameManager, and load the game scene.
-        gm.playerVehicle = vehicleSelector.GetVehicle();
-        SceneManager.LoadScene(1);
-        gm.StartGame();
+    public void ToggleInstructions()
+    {   //For enabling/disabling the instructions tab.
+        if(InstructionsTab.activeSelf)
+        {
+            InstructionsTab.SetActive(false);
+            MenuTab.SetActive(true);
+            vehicleSelect.SetActive(true);
+        }
+        else
+        {
+            InstructionsTab.SetActive(true);
+            MenuTab.SetActive(false);
+            vehicleSelect.SetActive(false);
+        }
     }
-
 }
